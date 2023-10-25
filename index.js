@@ -11,41 +11,19 @@ app.use(express.json());
 const PRIVATE_APP_ACCESS = 'pat-eu1-f0012737-580e-4082-9867-050021b7dbc3';
 
 app.get('/', async(req, res) => {
-    const companies = 'https://api.hubspot.com/crm/v3/objects/pikachus';
+    const companies = 'https://api.hubspot.com/crm/v3/objects/contacts';
     const headers ={
         Authirization: `Bearer ${PRIVATE_APP_ACCESS}`,
         'Content-Type':'application/jason'
     }
     try{
-const response = await axios.get(pikachus, { headers })
+const response = await axios.get(contacts, { headers })
 res.jason(response.data.result)
 }catch (error){
     console.error(error);
 }
 })
 
-app.post('/update', async (req, res) => {
-    const update = {
-        properties: {
-            "favorite_book": req.body.newVal
-        }
-    }
-
-    const email = req.query.email;
-    const updateContact = `https://api.hubapi.com/crm/v3/objects/contacts/${email}?idProperty=email`;
-    const headers = {
-        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
-        'Content-Type': 'application/json'
-    };
-
-    try { 
-        await axios.patch(updateContact, update, { headers } );
-        res.redirect('back');
-    } catch(err) {
-        console.error(err);
-    }
-
-});
 
 
 
