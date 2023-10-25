@@ -22,7 +22,21 @@ res.jason(response.data.result)
 }catch (error){
     console.error(error);
 }
-})
+});
+
+app.get('/', async(req, res) => {
+    const companies = 'https://api.hubspot.com/crm/v3/objects/pikachus';
+    const headers ={
+        Authirization: `Bearer ${PRIVATE_APP_ACCESS}`,
+        'Content-Type':'application/jason'
+    }
+    try{
+const response = await axios.get(pikachus, { headers })
+res.jason(response.data.result)
+}catch (error){
+    console.error(error);
+}
+});
 
 
 
